@@ -39,6 +39,7 @@ class _AddPageState extends State<AddPage> {
     if (fullName.isEmpty || date.isEmpty || content.isEmpty) return;
 
     _apiCreatePost(fullName, date, content);
+    Navigator.pop(context);
   }
 
   _apiCreatePost(String fullName, String date, String content) {
