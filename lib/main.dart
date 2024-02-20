@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LogInPage(),
+      home: const HomePage(),
       routes: {
         SplashPage.id: (context) => const SplashPage(),
         RegisterPage.id: (context) => const RegisterPage(),
