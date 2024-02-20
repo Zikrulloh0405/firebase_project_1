@@ -14,8 +14,10 @@ dependencies:
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
   firebase_database: ^10.4.6
+  firebase_storage: ^11.6.6
   flutter:
     sdk: flutter
+  image_picker: ^1.0.7
   intl_phone_field: ^3.2.0
 
 dev_dependencies:

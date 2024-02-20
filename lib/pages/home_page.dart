@@ -43,14 +43,26 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: ListView.builder(
-          itemCount: _listOfPost.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: textWidget(textInput: '${_listOfPost[index].fullName}'),
-              subtitle: textWidget(textInput: '${_listOfPost[index].content}'),
-              trailing: textWidget(textInput: '${_listOfPost[index].date}'),
-            );
-          }),
+  itemCount: _listOfPost.length,
+  itemBuilder: (context, index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          _listOfPost[index].imageUrl != null
+              ? Image.network(_listOfPost[index].imageUrl!, width: double.infinity)
+              : SizedBox(), 
+          ListTile(
+            title: textWidget(textInput: '${_listOfPost[index].fullName}'),
+            subtitle: textWidget(textInput: '${_listOfPost[index].content}'),
+            trailing: textWidget(textInput: '${_listOfPost[index].date}'),
+          ),
+        ],
+      ),
+    );
+  },
+),
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.amber,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
