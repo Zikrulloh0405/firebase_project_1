@@ -1,3 +1,6 @@
+import 'package:firebase_project_1/models/post_model.dart';
+import 'package:firebase_project_1/pages/add_page.dart';
+import 'package:firebase_project_1/services/real_time_database.dart';
 import 'package:firebase_project_1/widgets/all_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +13,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Post> _listOfPost = [];
+
+  Future _callCreatePage() async {
+    Map results = await Navigator.of(context)
+        .push(new MaterialPageRoute(builder: (BuildContext context) {
+      return AddPage();
+    }));
+    if (results != null && results.containsKey("data")) {
+      print(results['data']);
+      _apiPostList();
+    }
+  }
+
+  _apiPostList() async {
+    var list = await RealTimeDataBase.getPosts();
+    _listOfPost.clear();
+    setState(() {
+      _listOfPost = list;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,22 +43,29 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: ListView.builder(
-          itemCount: 10,
+          itemCount: _listOfPost.length,
           itemBuilder: (context, index) {
             return ListTile(
-              title: textWidget(textInput: 'textInput'),
-              subtitle: textWidget(textInput: 'textInput'),
-              trailing: textWidget(textInput: 'textInput'),
+              title: textWidget(textInput: '${_listOfPost[index].fullName}'),
+              subtitle: textWidget(textInput: '${_listOfPost[index].content}'),
+              trailing: textWidget(textInput: '${_listOfPost[index].date}'),
             );
           }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.amber,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        onPressed: () {},
-        child: iconWidget(inputIcon: Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddPage(),
+            ),
+          ).then((value) {
+            setState(() {});
+          });
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
-
-  
 }
